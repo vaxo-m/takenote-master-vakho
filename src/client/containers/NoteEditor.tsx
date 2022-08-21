@@ -4,7 +4,7 @@ import { Controlled as CodeMirror } from 'react-codemirror2'
 import { useDispatch, useSelector } from 'react-redux'
 import { Editor } from 'codemirror'
 
-import { getActiveNote } from '@/utils/helpers'
+import { getActiveNote, removeItalics } from '@/utils/helpers'
 import { updateNote } from '@/slices/note'
 import { NoteItem } from '@/types'
 import { NoteMenuBar } from '@/containers/NoteMenuBar'
@@ -29,6 +29,15 @@ export const NoteEditor: React.FC = () => {
   const { codeMirrorOptions, previewMarkdown } = useSelector(getSettings)
 
   const activeNote = getActiveNote(notes, activeNoteId)
+
+  const handleRemoveItalics = (note: NoteItem) => {
+    const updatedText: string = note.text
+      .split(/\r?\n/)
+      .map((item) => removeItalics(item))
+      .join('\n')
+
+    dispatch(updateNote({ ...note, text: updatedText }))
+  }
 
   // ===========================================================================
   // Dispatch
@@ -121,7 +130,7 @@ export const NoteEditor: React.FC = () => {
 
   return (
     <main className="note-editor">
-      <NoteMenuBar />
+      <NoteMenuBar handleRemoveItalics={handleRemoveItalics} />
       {renderEditor()}
     </main>
   )

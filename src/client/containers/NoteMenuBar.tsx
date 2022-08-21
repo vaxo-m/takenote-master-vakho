@@ -11,6 +11,7 @@ import {
   Settings,
   Sun,
   Moon,
+  Type,
   Clipboard as ClipboardCmp,
 } from 'react-feather'
 
@@ -28,7 +29,11 @@ import { getCategories, getNotes, getSync, getSettings } from '@/selectors'
 import { downloadNotes, isDraftNote, getShortUuid, copyToClipboard } from '@/utils/helpers'
 import { sync } from '@/slices/sync'
 
-export const NoteMenuBar = () => {
+export interface NoteMenuBarProps {
+  handleRemoveItalics: (note: NoteItem) => void
+}
+
+export const NoteMenuBar = (props: NoteMenuBarProps) => {
   // ===========================================================================
   // Selectors
   // ===========================================================================
@@ -145,6 +150,14 @@ export const NoteMenuBar = () => {
             {copyNoteIcon}
             {uuidCopiedText && <span className="uuid-copied-text">{uuidCopiedText}</span>}
             <span className="sr-only">Copy note</span>
+          </button>
+          <button className="note-menu-bar-button">
+            <Type
+              aria-hidden="true"
+              size={18}
+              onClick={() => props.handleRemoveItalics(activeNote)}
+            />
+            <span className="sr-only">Remove italic</span>
           </button>
         </nav>
       ) : (
