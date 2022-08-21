@@ -81,8 +81,8 @@ Go to your GitHub profile settings, and click on **Developer Settings**.
 Click the **New OAuth App** button.
 
 - **Application name**: TakeNote Development
-- **Homepage URL**: `http://localhost:3000`
-- **Authorization callback URL**: `http://localhost:3000/api/auth/callback`
+- **Homepage URL**: `http://localhost:3001`
+- **Authorization callback URL**: `http://localhost:3001/api/auth/callback`
 
 Create a `.env` file in the root of the project, and add the app's client ID and secret. Remove `DEMO` variable to enable GitHub integration.
 

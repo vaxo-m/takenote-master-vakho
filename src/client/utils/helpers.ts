@@ -294,3 +294,15 @@ export const getNoteBarConf = (
 export const copyToClipboard = (text: string) => {
   clipboard.writeText(text)
 }
+
+export const removeItalics = (text: string) => {
+  const re1 = /\*+/g
+  const re2 = /\_+/g
+  const firstClear = text.replace(re2, function (match: string) {
+    return match.length === 2 || match.length === 3 ? '__' : ''
+  })
+
+  return firstClear.replace(re1, function (match: string) {
+    return match.length === 2 || match.length === 3 ? '**' : ''
+  })
+}
